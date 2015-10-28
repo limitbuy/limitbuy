@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="limitbuy-web:ear exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/limitbuy_web_ear_exploded2</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="limitbuy-web/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

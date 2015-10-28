@@ -22,11 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="limitbuy" />
+        <module name="limitbuy-business" />
+        <module name="limitbuy-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="limitbuy" target="1.5" />
+      <module name="limitbuy-business" target="1.5" />
+      <module name="limitbuy-web" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
