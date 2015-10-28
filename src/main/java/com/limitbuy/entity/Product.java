@@ -1,4 +1,4 @@
-package com.eleme.limitbuy.entity;
+package com.limitbuy.entity;
 
 /**
  * Created by longwu on 15/10/28.

@@ -1,6 +1,6 @@
-package com.eleme.limitbuy.iface;
+package com.limitbuy.iface;
 
-import com.eleme.limitbuy.entity.Order;
+import com.limitbuy.entity.Order;
 
 /**
  * Created by longwu on 15/10/28.

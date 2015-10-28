@@ -1,6 +1,6 @@
-package com.eleme.limitbuy.iface;
+package com.limitbuy.iface;
 
-import com.eleme.limitbuy.entity.User;
+import com.limitbuy.entity.User;
 
 /**
  * Created by longwu on 15/10/28.

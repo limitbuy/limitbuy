@@ -1,4 +1,4 @@
-package com.eleme.limitbuy.entity;
+package com.limitbuy.entity;
 
 import java.util.Date;
 
