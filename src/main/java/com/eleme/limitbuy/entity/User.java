@@ -1,6 +1,7 @@
 package com.eleme.limitbuy.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by longwu on 15/10/28.
@@ -10,7 +11,7 @@ public class User extends BaseModel{
     private String username;
     private String password;
     private String email;
-
+    private List<Address> addressList;
     public long getId() {
         return id;
     }
@@ -42,5 +43,24 @@ public class User extends BaseModel{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", addressList=" + addressList +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.eleme.limitbuy.iface;
 
+import com.eleme.limitbuy.entity.Order;
+
 /**
  * Created by longwu on 15/10/28.
  */
