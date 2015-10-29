@@ -6,6 +6,7 @@ import java.util.List;
  * Created by longwu on 15/10/28.
  */
 public class Cart extends BaseModel{
+    //te
     private List<Product> productList;//购物车中商品列表
     private String amount;//合计总金额，也就是用户最终需要支付的金额
 
