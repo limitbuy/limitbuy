@@ -30,7 +30,7 @@
     </bean>
 
     <context:annotation-config/>
-
+    <!-- 能够事物管理使用注解的方式 -->
     <!-- 能够事物管理使用注解的方式 -->
     <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
     <!-- 声明一个事物管理 -->
