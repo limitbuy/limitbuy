@@ -5,7 +5,7 @@ import com.limitbuy.entity.Cart;
 /**
  * Created by longwu on 15/10/28.
  */
-public interface CartInterface {
+public interface CartServie {
 
     /**
      * 添加购物车

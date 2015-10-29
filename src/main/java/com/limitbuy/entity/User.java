@@ -10,7 +10,8 @@ public class User extends BaseModel{
     private String username;
     private String password;
     private String email;
-    private List<Address> addressList;
+    private String address;
+    private String phoneNum;
     public long getId() {
         return id;
     }
@@ -40,16 +41,26 @@ public class User extends BaseModel{
         return email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
+
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     @Override
@@ -59,7 +70,8 @@ public class User extends BaseModel{
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", addressList=" + addressList +
+                ", addressList='" + address + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
                 '}';
     }
 }

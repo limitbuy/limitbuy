@@ -5,7 +5,7 @@ import com.limitbuy.entity.User;
 /**
  * Created by longwu on 15/10/28.
  */
-public interface UserInterface {
+public interface UserService {
     /**
      * 用户注册
      * @param user
@@ -18,7 +18,7 @@ public interface UserInterface {
      * @param user
      * @return
      */
-    String login(User user);
+    String login(String username,String pasword);
 
 
 }

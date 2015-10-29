@@ -1,12 +1,12 @@
 package com.limitbuy.iface.impl;
 
 import com.limitbuy.entity.Cart;
-import com.limitbuy.iface.CartInterface;
+import com.limitbuy.iface.CartServie;
 
 /**
  * Created by longwu on 15/10/28.
  */
-public class CartImpl implements CartInterface{
+public class CartServiceImpl implements CartServie{
     public String addToCart(Cart cart) {
         return null;
     }
