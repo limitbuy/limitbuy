@@ -1,10 +1,11 @@
-import com.alibaba.fastjson.JSONObject;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,36 +56,40 @@ public class HttpUtils {
 
     }
 
-    public static String httpPost(String url,JSONObject obj){
+    public static String httpPost(String url,String json){
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost postRequest = new HttpPost(
                     url);
 
-            StringEntity input = new StringEntity(obj.toString());
+            StringEntity input = new StringEntity(json,"utf-8");
             input.setContentType("application/json");
             postRequest.setEntity(input);
 
             HttpResponse response = httpClient.execute(postRequest);
 
-            if (response.getStatusLine().getStatusCode() != 201) {
+            if (response.getStatusLine().getStatusCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + response.getStatusLine().getStatusCode());
             }
 
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader((response.getEntity().getContent())));
+
+            HttpEntity entity = response.getEntity();
+            String respContent = EntityUtils.toString(entity);
+            postRequest.abort();
+            /*BufferedReader br = new BufferedReader(
+                    new InputStreamReader((entity.getContent()),"ISO-8859-1"));
 
             String output;
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 result.append(output);
-            }
+            }*/
 
             httpClient.getConnectionManager().shutdown();
-            return result.toString();
+            return respContent;
 
         } catch (MalformedURLException e) {
 

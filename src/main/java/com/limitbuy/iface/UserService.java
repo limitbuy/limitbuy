@@ -1,6 +1,7 @@
 package com.limitbuy.iface;
 
 import com.limitbuy.entity.User;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by longwu on 15/10/28.

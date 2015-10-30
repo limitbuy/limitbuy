@@ -3,6 +3,8 @@ package com.limitbuy.iface.impl;
 import com.limitbuy.dao.UserDao;
 import com.limitbuy.entity.User;
 import com.limitbuy.iface.UserService;
+import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserDao userDao;
     public String register(User user) {
-        return userDao.saveUser(user)==1?"success":"failure";
+        User exists = userDao.findByUsername(user.getUsername());
+        if(exists == null){
+            return "user is exists!";
+        }
+        try{
+            long result = userDao.saveUser(user);
+            if(result  == 1){
+                return "regist success,username:"+user.getUsername();
+            }else{
+                return "user information is incorrect !";
+            }
+        }catch (Exception e ){
+            log.error(e.toString());
+            return "user information is incorrect !";
+        }
     }
 
     public String login(String username,String password) {
@@ -24,10 +42,10 @@ public class UserServiceImpl implements UserService{
             if(user.getPassword().equals(password)){
                 return "login success!";
             }else{
-                return "password is wrong";
+                return "password is incorrect";
             }
         }else{
-            return "user is not exsits";
+            return "user is not exists!";
         }
     }
 }
