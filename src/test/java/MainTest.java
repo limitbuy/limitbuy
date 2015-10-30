@@ -26,7 +26,7 @@ private UserService userService;
     @Test
     public void testRegist(){
         User user = new User();
-        user.setUsername("xlw1");
+        user.setUsername("xlw13");
         user.setPassword("xlw");
         user.setEmail("xlw@ele.me");
         user.setAddress("上海市");
@@ -39,9 +39,11 @@ private UserService userService;
 
     @Test
     public void testLogin(){
-        String username = "xlw";
-        String password = "xlw";
+        String username = "xlw12";
+        String password = "xlw2";
         String login = userService.login(username, password);
+        boolean userinfo = userService.redis(username);
+        System.out.println("userinfo:"+userinfo);
         log.info("*************" + login + "*************");
     }
 

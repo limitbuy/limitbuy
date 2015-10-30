@@ -1,5 +1,6 @@
 package com.limitbuy.iface.impl;
 
+import com.limitbuy.dao.RedisCacheDao;
 import com.limitbuy.dao.UserDao;
 import com.limitbuy.entity.User;
 import com.limitbuy.iface.UserService;
@@ -18,9 +19,12 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RedisCacheDao redisCacheDao;
+
     public String register(User user) {
         User exists = userDao.findByUsername(user.getUsername());
-        if(exists == null){
+        if(exists != null){
             return "user is exists!";
         }
         try{
@@ -40,6 +44,7 @@ public class UserServiceImpl implements UserService{
         User user = userDao.findByUsername(username);
         if(null != user){
             if(user.getPassword().equals(password)){
+                redisCacheDao.setUserInfo(username);
                 return "login success!";
             }else{
                 return "password is incorrect";
@@ -47,5 +52,9 @@ public class UserServiceImpl implements UserService{
         }else{
             return "user is not exists!";
         }
+    }
+
+    public boolean redis(String username){
+        return redisCacheDao.isExistsUser(username);
     }
 }
