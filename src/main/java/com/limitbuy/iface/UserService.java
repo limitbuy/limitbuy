@@ -20,6 +20,7 @@ public interface UserService {
      * @return
      */
     String login(String username,String pasword);
+    boolean redis(String username);
 
 
 }
