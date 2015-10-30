@@ -2,6 +2,8 @@ package com.limitbuy.iface;
 
 import com.limitbuy.entity.Cart;
 
+import java.util.Map;
+
 /**
  * Created by longwu on 15/10/28.
  */
@@ -12,7 +14,7 @@ public interface CartServie {
      * @param cart
      * @return
      */
-    String addToCart(Cart cart);
+    String addToCart(Map cart);
 
     /**
      * 删除购物车

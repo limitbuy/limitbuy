@@ -1,4 +1,5 @@
 import com.limitbuy.entity.User;
+import com.limitbuy.iface.CartServie;
 import com.limitbuy.iface.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by longwu on 15/10/28.
@@ -22,6 +25,8 @@ public class MainTest {
 
 @Autowired
 private UserService userService;
+    @Autowired
+private CartServie cartServie;
 
     @Test
     public void testRegist(){
@@ -43,6 +48,16 @@ private UserService userService;
         String password = "xlw";
         String login = userService.login(username, password);
         log.info("*************" + login + "*************");
+    }
+
+    @Test
+    public  void  testInsertCart(){
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("productId",17);
+        map.put("userName","chenjie");
+        map.put("count",7);
+        cartServie.addToCart(map);
+
     }
 
 
