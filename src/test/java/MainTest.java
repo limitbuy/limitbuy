@@ -1,3 +1,6 @@
+import com.alibaba.fastjson.JSONArray;
+import com.limitbuy.entity.Cart;
+import com.limitbuy.entity.Goods;
 import com.limitbuy.entity.User;
 import com.limitbuy.iface.CartServie;
 import com.limitbuy.iface.UserService;
@@ -11,25 +14,23 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by longwu on 15/10/28.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:spring/spring.xml")
+@ContextConfiguration(locations = "classpath:spring/spring.xml")
 public class MainTest {
     private static Logger log = LoggerFactory.getLogger(MainTest.class);
 
-@Autowired
-private UserService userService;
     @Autowired
-private CartServie cartServie;
+    private UserService userService;
+    @Autowired
+    private CartServie cartServie;
 
     @Test
-    public void testRegist(){
+    public void testRegist() {
         User user = new User();
         user.setUsername("xlw1");
         user.setPassword("xlw");
@@ -43,7 +44,7 @@ private CartServie cartServie;
     }
 
     @Test
-    public void testLogin(){
+    public void testLogin() {
         String username = "xlw";
         String password = "xlw";
         String login = userService.login(username, password);
@@ -51,12 +52,29 @@ private CartServie cartServie;
     }
 
     @Test
-    public  void  testInsertCart(){
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("productId",17);
-        map.put("userName","chenjie");
-        map.put("count",7);
+    public void testInsertCart() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("productId", 17);
+        map.put("userName", "chenjie");
+        map.put("count", 7);
         cartServie.addToCart(map);
+
+    }
+
+    @Test
+    public void testInertC() {
+
+        Goods g = new Goods();
+        g.setCount(3);
+        g.setProductId(1);
+        List<Goods> list = new ArrayList<Goods>();
+        list.add(g);
+        Cart c = new Cart();
+        c.setUserName("chenjie");
+        c.setProductList(list);
+        c.setAmount("890.09");
+        String s = JSONArray.toJSONString(c);
+        System.out.print(s);
 
     }
 
