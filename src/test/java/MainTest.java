@@ -1,5 +1,13 @@
+import com.alibaba.fastjson.JSONArray;
+import com.limitbuy.entity.Cart;
+import com.limitbuy.entity.Goods;
+import com.limitbuy.entity.Product;
 import com.limitbuy.entity.User;
+import com.limitbuy.iface.CartServie;
+import com.limitbuy.iface.ProductService;
+import com.limitbuy.iface.RushService;
 import com.limitbuy.iface.UserService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,13 +18,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by longwu on 15/10/28.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:spring/spring.xml")
+@ContextConfiguration(locations = "classpath:spring/spring.xml")
 public class MainTest {
     private static Logger log = LoggerFactory.getLogger(MainTest.class);
 
@@ -24,9 +32,14 @@ public class MainTest {
     private UserService userService;
     @Autowired
     private CartServie cartServie;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    protected RushService rushService;
 
-    @Test
-    public void testRegist(){
+
+    @Ignore
+    public void testRegist() {
         User user = new User();
         user.setUsername("xlw1");
         user.setPassword("xlw");
@@ -39,15 +52,15 @@ public class MainTest {
         System.out.println(result);
     }
 
-    @Test
-    public void testLogin(){
+    @Ignore
+    public void testLogin() {
         String username = "xlw";
         String password = "xlw";
         String login = userService.login(username, password);
         log.info("*************" + login + "*************");
     }
 
-    @Test
+    @Ignore
     public void testInsertCart() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("productId", 17);
@@ -57,7 +70,7 @@ public class MainTest {
 
     }
 
-    @Test
+    @Ignore
     public void testInertC() {
 
         Goods g = new Goods();
@@ -74,5 +87,32 @@ public class MainTest {
 
     }
 
+    @Ignore
+    public void testProductI() {
+        Product p = new Product();
+        p.setName("iphone6s");
+        p.setPrice(12.34);
+        p.setStock(99);
+        productService.insertProduct(p);
+    }
+
+    @Ignore
+    public void testProdecuIncrease() {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("productId", 2);
+        map.put("count", 9);
+        productService.decreaseProduct(map);
+
+
+    }
+
+    @Test
+    public void testCheck() {
+      Map<String,Object> map = new HashMap<String, Object>();
+        map.put("productId",1);
+        map.put("count",500);
+        System.out.print("+++++++++++++++++"+productService.checkGoods(map));
+    }
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limitbuy.dao.RushDao">
+
+<insert id="insertOrder" parameterType="map" >
+    INSERT INTO orderinfo
+    (userId,
+     productId,
+     count)
+    VALUES
+	(#{userId},
+	 #{productId},
+	 #{count})
+</insert>
+
+
+</mapper>

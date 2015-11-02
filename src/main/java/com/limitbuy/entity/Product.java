@@ -7,9 +7,10 @@ public class Product extends BaseModel{
     private long id;
     private String productId;//商品目录ID
     private String name;//商品名称
-    private String price;//定价
+    private double price;//定价
     private String nowPrice;//现价
     private int stock;//库存
+    private String description ;
     private int status;//商品状态。1：新增，2：已上架，3：已下架
 
     public long getId() {
@@ -36,12 +37,20 @@ public class Product extends BaseModel{
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getNowPrice() {
