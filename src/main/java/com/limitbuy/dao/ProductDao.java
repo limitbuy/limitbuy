@@ -14,4 +14,6 @@ public interface ProductDao {
     public  int decreaseProduct(Map map);
 
     public  int checkGoods(Map map);
+
+    public  int queryGoodsCount(int productId);
 }

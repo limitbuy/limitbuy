@@ -15,5 +15,6 @@ public interface ProductService {
 
     public  int checkGoods(Map map);
 
+    public  int queryGoodsCount(int productId);
 
 }

@@ -28,4 +28,8 @@ public class ProductServiceImpl implements ProductService {
     public int checkGoods(Map map) {
         return productDao.checkGoods(map);
     }
+
+    public int queryGoodsCount(int productId) {
+        return productDao.queryGoodsCount(productId);
+    }
 }

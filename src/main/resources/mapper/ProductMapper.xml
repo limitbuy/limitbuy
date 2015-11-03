@@ -29,4 +29,11 @@
 
 
     </select>
+
+    <select id="queryGoodsCount" parameterType="int" resultType="int">
+
+        SELECT  stock from productinfo
+        where id=#{productid}
+    </select>
+
 </mapper>

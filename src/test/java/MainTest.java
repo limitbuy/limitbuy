@@ -104,9 +104,22 @@ public class MainTest {
     @Test
     public void testCheck() {
       Map<String,Object> map = new HashMap<String, Object>();
+<<<<<<< Updated upstream
         map.put("productId", 1);
         map.put("count", 500);
         System.out.print("+++++++++++++++++"+productService.checkGoods(map));
+=======
+        map.put("productId",1);
+        map.put("count",500);
+        System.out.print("+++++++++++++++++" + productService.checkGoods(map));
+    }
+
+    @Test
+    public void testQueryGoods(){
+
+
+        System.out.print("+++++++++++++++++"+productService.queryGoodsCount(3));
+>>>>>>> Stashed changes
     }
 
 }
