@@ -79,22 +79,20 @@ public class HttpUtils {
                         + response.getStatusLine().getStatusCode());
             }
 
-
             HttpEntity entity = response.getEntity();
-            String respContent = EntityUtils.toString(entity);
-            postRequest.abort();
-            /*BufferedReader br = new BufferedReader(
-                    new InputStreamReader((entity.getContent()),"ISO-8859-1"));
+
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(entity.getContent(),"UTF-8"));
 
             String output;
             StringBuilder result = new StringBuilder();
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 result.append(output);
-            }*/
+            }
 
             httpClient.getConnectionManager().shutdown();
-            return respContent;
+            return result.toString();
 
         } catch (MalformedURLException e) {
 

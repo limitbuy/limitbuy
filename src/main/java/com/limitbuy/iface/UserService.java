@@ -19,7 +19,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    String login(String username,String pasword);
+    String login(String username);
     boolean redis(String username);
 
 

@@ -40,19 +40,16 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    public String login(String username,String password) {
-        User user = userDao.findByUsername(username);
-        if(null != user){
-            if(user.getPassword().equals(password)){
-                redisCacheDao.setUserInfo(username);
-                return "login success!";
-            }else{
-                return "password is incorrect";
-            }
-        }else{
-            return "user is not exists!";
+    public String login(String username) {
+
+        if (redisCacheDao.isExistsUser(username)) {
+            return "用户已经登录!";
+        } else {
+            redisCacheDao.setUserInfo(username);
+            return "用户登录成功!";
         }
     }
+
 
     public boolean redis(String username){
         return redisCacheDao.isExistsUser(username);

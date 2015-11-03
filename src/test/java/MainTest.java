@@ -13,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -42,10 +40,6 @@ public class MainTest {
     public void testRegist() {
         User user = new User();
         user.setUsername("xlw1");
-        user.setPassword("xlw");
-        user.setEmail("xlw@ele.me");
-        user.setAddress("上海市");
-        user.setPhoneNum("13245645678");
         user.setCreateTime(new Date());
         user.setCreateBy("xlw");
         String result = userService.register(user);
@@ -56,7 +50,7 @@ public class MainTest {
     public void testLogin() {
         String username = "xlw";
         String password = "xlw";
-        String login = userService.login(username, password);
+        String login = userService.login(username);
         log.info("*************" + login + "*************");
     }
 
@@ -110,8 +104,8 @@ public class MainTest {
     @Test
     public void testCheck() {
       Map<String,Object> map = new HashMap<String, Object>();
-        map.put("productId",1);
-        map.put("count",500);
+        map.put("productId", 1);
+        map.put("count", 500);
         System.out.print("+++++++++++++++++"+productService.checkGoods(map));
     }
 

@@ -22,6 +22,6 @@ public class UserAction {
 
     @RequestMapping(value="login",method=RequestMethod.POST)
     public String login(@RequestBody User user){
-        return userService.login(user.getUsername(), user.getPassword());
+        return userService.login(user.getUsername());
     }
 }
