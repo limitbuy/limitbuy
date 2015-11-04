@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.limitbuy.dao.OrderDao">
+
+    <insert id="insert" parameterType="com.limitbuy.entity.Order" keyProperty="id" useGeneratedKeys="true">
+
+
+
+
+       INSERT INTO orderinfo
+       ( username)
+         VALUES (#{userName})
+
+
+    </insert>
+
+    <insert id="insertOrderGoods" parameterType="com.limitbuy.entity.OrderGoods">
+
+       insert into ordergoods
+       (orderid,
+        productid,
+        count)
+       values(
+       #{orderId},
+       #{productId},
+       #{count})
+
+    </insert>
+
+    <select id="queryAllGoods" parameterType="map" resultType="com.limitbuy.entity.OrderGoods">
+        SELECT orderid as orderId,
+        productid as productId,
+        count
+        FROM ordergoods
+        WHERE
+            orderid IN
+            <foreach collection="orderIds" item="item" separator="," open="(" index="index" close=")">
+                #{item,jdbcType=NUMERIC}
+
+            </foreach>
+
+    </select>
+
+    <select id="queryOrderId" parameterType="string" resultType="string">
+
+        SELECT id
+        from orderinfo
+        WHERE 1=1
+        <if test="_parameter!=null and _parameter!='' ">
+            AND  username =#{_parameter}
+
+        </if>
+    </select>
+</mapper>

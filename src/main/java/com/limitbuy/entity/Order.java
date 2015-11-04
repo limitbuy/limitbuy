@@ -5,24 +5,25 @@ import java.util.List;
 /**
  * Created by longwu on 15/10/28.
  */
-public class Order extends  BaseModel{
+public class Order extends BaseModel {
     public static final String order_status_init_chinese = "已下单";
     public static final String order_status_cancel_chinese = "已取消";
     public static final String order_paystatus_n = "n";// 未支付
     public static final String order_paystatus_y = "y";// 全部支付
 
-    private long id;
+    private int id;
+    private String userName;
     private String account;//订单付款账户
     private String status;//订单状态
     private String amount;//订单总金额
     private int quantity;//商品总数量
-    private List<Product> productList;
+    private List<Goods> productList;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,11 +59,19 @@ public class Order extends  BaseModel{
         this.quantity = quantity;
     }
 
-    public List<Product> getProductList() {
+    public List<Goods> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<Goods> productList) {
         this.productList = productList;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

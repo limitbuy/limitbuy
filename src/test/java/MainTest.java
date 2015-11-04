@@ -1,12 +1,6 @@
 import com.alibaba.fastjson.JSONArray;
-import com.limitbuy.entity.Cart;
-import com.limitbuy.entity.Goods;
-import com.limitbuy.entity.Product;
-import com.limitbuy.entity.User;
-import com.limitbuy.iface.CartServie;
-import com.limitbuy.iface.ProductService;
-import com.limitbuy.iface.RushService;
-import com.limitbuy.iface.UserService;
+import com.limitbuy.entity.*;
+import com.limitbuy.iface.*;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +28,11 @@ public class MainTest {
     private ProductService productService;
     @Autowired
     protected RushService rushService;
+
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private  OrderGoodsService orderGoodsService;
 
 
     @Ignore
@@ -104,11 +103,11 @@ public class MainTest {
     @Test
     public void testCheck() {
       Map<String,Object> map = new HashMap<String, Object>();
-<<<<<<< Updated upstream
+
         map.put("productId", 1);
         map.put("count", 500);
         System.out.print("+++++++++++++++++"+productService.checkGoods(map));
-=======
+
         map.put("productId",1);
         map.put("count",500);
         System.out.print("+++++++++++++++++" + productService.checkGoods(map));
@@ -119,7 +118,35 @@ public class MainTest {
 
 
         System.out.print("+++++++++++++++++"+productService.queryGoodsCount(3));
->>>>>>> Stashed changes
+
     }
+
+    @Test
+    public void testOrderinsert(){
+
+
+        Order o = new Order();
+        o.setUserName("chenjie");
+        orderService.insert(o);
+        System.out.print("++++++++++++++++++++++++++++++++"+o.getId());
+    }
+
+    @Test
+    public void testOrderGoods(){
+        OrderGoods o =new OrderGoods();
+        o.setCount(5);
+        o.setOrderId(2);
+        o.setProductId(9);
+        orderGoodsService.insertOrderGoods(o);
+
+    }
+
+    @Test
+    public  void  testOrderquery(){
+
+        String userName = "chenjie";
+        orderService.queryOrder(userName);
+    }
+
 
 }

@@ -5,23 +5,23 @@ package com.limitbuy.entity;
  */
 public class Goods {
 
-    private long productId;//商品Id
+    private int productId;//商品Id
 
-    private long count;//商品数量
+    private int count;//商品数量
 
-    public long getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
-    public long getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(long count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
