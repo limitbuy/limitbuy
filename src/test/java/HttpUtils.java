@@ -1,3 +1,6 @@
+import com.alibaba.fastjson.JSONObject;
+import com.limitbuy.entity.Cart;
+import com.limitbuy.entity.Goods;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -14,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by longwu on 15/10/29.
@@ -105,4 +110,22 @@ public class HttpUtils {
         }
         return null;
     }
+
+
+    public static void main(String[] args) {
+        Cart cart = new Cart();
+        Goods goods = new Goods();
+        goods.setProductId(1);
+        goods.setCount(32);
+        Goods goods1 = new Goods();
+        goods1.setProductId(2);
+        goods1.setCount(32);
+        List<Goods> goodsList = new ArrayList<Goods>();
+        goodsList.add(goods);
+        goodsList.add(goods1);
+        cart.setProductList(goodsList);
+        cart.setUserName("xlw");
+        System.out.println(JSONObject.toJSONString(cart));
+    }
+
 }

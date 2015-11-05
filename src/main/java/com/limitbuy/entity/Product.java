@@ -3,15 +3,14 @@ package com.limitbuy.entity;
 /**
  * Created by longwu on 15/10/28.
  */
-public class Product extends BaseModel{
+public class Product{
     private long id;
     private String productId;//商品目录ID
     private String name;//商品名称
     private double price;//定价
-    private String nowPrice;//现价
     private int stock;//库存
     private String description ;
-    private int status;//商品状态。1：新增，2：已上架，3：已下架
+//    private int status;//商品状态。1：新增，2：已上架，3：已下架?
 
     public long getId() {
         return id;
@@ -53,13 +52,6 @@ public class Product extends BaseModel{
         this.description = description;
     }
 
-    public String getNowPrice() {
-        return nowPrice;
-    }
-
-    public void setNowPrice(String nowPrice) {
-        this.nowPrice = nowPrice;
-    }
 
     public int getStock() {
         return stock;
@@ -67,13 +59,5 @@ public class Product extends BaseModel{
 
     public void setStock(int stock) {
         this.stock = stock;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }

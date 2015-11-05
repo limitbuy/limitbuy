@@ -19,8 +19,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     public OrderDao orderDao;
 
-    public int insert(Order order) {
+    public void insert(Order order) {
         orderDao.insert(order);
+
         int id = order.getId();
         List<Goods> list = order.getProductList();
         if (list != null && list.size() > 0) {
@@ -29,9 +30,9 @@ public class OrderServiceImpl implements OrderService {
                 og.setOrderId(id);
                 og.setProductId(p.getProductId());
                 og.setCount(p.getCount());
+                orderDao.insertOrderGoods(og);
             }
         }
-        return  1;
     }
 
 
@@ -52,5 +53,14 @@ public class OrderServiceImpl implements OrderService {
         o.setUserName(userName);
         o.setProductList(goods);
         return o;
+    }
+
+    public List<Order> queryAll() {
+        List<Order> orders = new ArrayList<Order>();
+        List<String> usernames = orderDao.queryDistinctName();
+        for (String username : usernames){
+            orders.add(queryOrder(username));
+        }
+        return orders;
     }
 }

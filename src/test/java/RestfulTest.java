@@ -41,4 +41,16 @@ public class RestfulTest {
         System.out.println(httpPost);
     }
 
+    @Test
+    public void testQueryStock(){
+
+        String url = "http://localhost:8080/limitbuy/product/query/1";
+        String httpPost = HttpUtils.httpGet(url);
+        //        JSONObject jsonObject = new JSONObject("");
+
+//        String httpPost = HttpUtils.httpPost(url, jsonObject);
+
+        System.out.println(httpPost);
+    }
+
 }

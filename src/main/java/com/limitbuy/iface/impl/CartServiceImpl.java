@@ -1,6 +1,8 @@
 package com.limitbuy.iface.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.limitbuy.dao.GoodsDao;
+import com.limitbuy.dao.RedisCacheDao;
 import com.limitbuy.entity.Cart;
 import com.limitbuy.iface.CartServie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,12 @@ import java.util.Map;
 public class CartServiceImpl implements CartServie{
 
     @Autowired
-    GoodsDao goodsDao;
+    private GoodsDao goodsDao;
+    @Autowired
+    private RedisCacheDao redisCacheDao;
 
-    public String addToCart(Map cart) {
-
+    public void addToCart(Map cart) {
         goodsDao.insertCart(cart);
-        return null;
     }
 
     public String deleteFromCart(String userName)

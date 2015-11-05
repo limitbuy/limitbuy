@@ -52,6 +52,10 @@ public class Order extends BaseModel {
     }
 
     public int getQuantity() {
+        int quantity = 0;
+        for(Goods goods : productList){
+            quantity += goods.getCount();
+        }
         return quantity;
     }
 

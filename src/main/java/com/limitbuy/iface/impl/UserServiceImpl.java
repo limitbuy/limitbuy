@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
         if (redisCacheDao.isExistsUser(username)) {
             return "用户已经登录!";
         } else {
-            redisCacheDao.setUserInfo(username);
+            redisCacheDao.setUserInfo(username,username);
             return "用户登录成功!";
         }
     }

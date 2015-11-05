@@ -20,6 +20,11 @@ public class UserAction {
         return userService.register(user);
     }
 
+    /**
+     * 登录z
+     * @param user
+     * @return
+     */
     @RequestMapping(value="login",method=RequestMethod.POST)
     public String login(@RequestBody User user){
         return userService.login(user.getUsername());

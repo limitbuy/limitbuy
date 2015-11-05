@@ -1,4 +1,5 @@
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.limitbuy.entity.*;
 import com.limitbuy.iface.*;
 import jdk.nashorn.internal.ir.annotations.Ignore;
@@ -31,8 +32,6 @@ public class MainTest {
 
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private  OrderGoodsService orderGoodsService;
 
 
     @Ignore
@@ -56,9 +55,14 @@ public class MainTest {
     @Ignore
     public void testInsertCart() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("productId", 17);
         map.put("userName", "chenjie");
-        map.put("count", 7);
+        Goods goods = new Goods();
+        goods.setProductId(17);
+        goods.setCount(2);
+        map.put("goods",goods);
+/*
+        map.put("productId", 17);
+        map.put("count", 7);*/
         cartServie.addToCart(map);
 
     }
@@ -103,11 +107,6 @@ public class MainTest {
     @Test
     public void testCheck() {
       Map<String,Object> map = new HashMap<String, Object>();
-
-        map.put("productId", 1);
-        map.put("count", 500);
-        System.out.print("+++++++++++++++++"+productService.checkGoods(map));
-
         map.put("productId",1);
         map.put("count",500);
         System.out.print("+++++++++++++++++" + productService.checkGoods(map));
@@ -117,7 +116,7 @@ public class MainTest {
     public void testQueryGoods(){
 
 
-        System.out.print("+++++++++++++++++"+productService.queryGoodsCount(3));
+        System.out.print("+++++++++++++++++"+productService.queryGoodsCount("3"));
 
     }
 
@@ -131,22 +130,32 @@ public class MainTest {
         System.out.print("++++++++++++++++++++++++++++++++"+o.getId());
     }
 
-    @Test
-    public void testOrderGoods(){
-        OrderGoods o =new OrderGoods();
-        o.setCount(5);
-        o.setOrderId(2);
-        o.setProductId(9);
-        orderGoodsService.insertOrderGoods(o);
-
-    }
 
     @Test
     public  void  testOrderquery(){
 
         String userName = "chenjie";
-        orderService.queryOrder(userName);
+        orderService.queryOrder("");
     }
+
+    @Test
+    public  void  testOrderqueryAll(){
+
+        StringBuilder sb = new StringBuilder("系统所有订单: ");
+        List<Order> orders = orderService.queryAll();
+
+        for (Order order : orders){
+            sb.append("\n用户名:"+ order.getUserName());
+            int i = 0;
+            for(Goods goods : order.getProductList()){
+                sb.append(" ,订单" + (++i) + ": 商品id: " + goods.getProductId() + " ,商品数量: " + goods.getCount());
+            }
+        }
+
+
+        System.out.println(sb);
+    }
+
 
 
 }

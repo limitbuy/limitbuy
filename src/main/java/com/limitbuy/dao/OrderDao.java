@@ -18,4 +18,6 @@ public interface OrderDao {
     public List<String> queryOrderId(String userName);
 
     public  List<OrderGoods> queryAllGoods(Map map);
+
+    List<String> queryDistinctName();
 }

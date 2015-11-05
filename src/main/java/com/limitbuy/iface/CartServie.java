@@ -14,7 +14,7 @@ public interface CartServie {
      * @param cart
      * @return
      */
-    String addToCart(Map cart);
+    void addToCart(Map cart);
 
     /**
      * 删除购物车
