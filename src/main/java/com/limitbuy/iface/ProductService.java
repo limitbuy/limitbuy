@@ -1,5 +1,6 @@
 package com.limitbuy.iface;
 
+import com.limitbuy.entity.Goods;
 import com.limitbuy.entity.Product;
 
 import java.util.Map;
@@ -11,7 +12,7 @@ public interface ProductService {
 
     public  int insertProduct(Product product);
 
-    public  int decreaseProduct(Map map);
+    public  int decreaseProduct(Goods goods);
 
     public  int checkGoods(Map map);
 

@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.limitbuy.dao.GoodsDao;
 import com.limitbuy.dao.RedisCacheDao;
 import com.limitbuy.entity.Cart;
+import com.limitbuy.entity.Goods;
 import com.limitbuy.iface.CartServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,8 +25,30 @@ public class CartServiceImpl implements CartServie{
     @Autowired
     private RedisCacheDao redisCacheDao;
 
-    public void addToCart(Map cart) {
+    public void addToCart(String username,Goods goods) {
+        Map cart = new HashMap();
+        cart.put("userName",username);
+        cart.put("productId",goods.getProductId());
+        cart.put("count",goods.getCount());
         goodsDao.insertCart(cart);
+        List<Goods> goodsList = null;
+        String userInfo = redisCacheDao.getUserInfo(username);
+        if(!userInfo.equals(username)){
+            goodsList = JSONObject.parseArray(userInfo,Goods.class);
+            for (Goods goods1 : goodsList){
+                if(goods1.getProductId() ==  goods.getCount()){
+                    goods1.setCount(goods1.getCount() + goods.getCount());
+                    redisCacheDao.setUserInfo(username, JSONObject.toJSONString(goodsList));
+                    break;
+                }
+            }
+            goodsList.add(goods);
+            redisCacheDao.setUserInfo(username, JSONObject.toJSONString(goodsList));
+        }else{
+            goodsList = new ArrayList<Goods>();
+            goodsList.add(goods);
+            redisCacheDao.setUserInfo(username, JSONObject.toJSONString(goodsList));
+        }
     }
 
     public String deleteFromCart(String userName)

@@ -52,14 +52,10 @@ public class CartAction {
                         result.append("商品ID:"+productId + "库存不足,添加购物车失败\n");
                         continue;
                     }
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("userName", cart.getUserName());
-                    map.put("count", g.getCount());
-                    map.put("productId", g.getProductId());
                     //从库存里减去购买商品的数量
-                    productService.decreaseProduct(map);
+                    productService.decreaseProduct(g);
                     //添加到购物车
-                    cartServie.addToCart(map);
+                    cartServie.addToCart(cart.getUserName(),g);
                     result.append("商品ID:"+productId + "添加购物车成功\n");
                 }
             }

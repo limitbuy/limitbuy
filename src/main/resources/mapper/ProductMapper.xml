@@ -15,7 +15,7 @@
         #{price})
     </insert>
     
-    <update id="decreaseProduct" parameterType="map" >
+    <update id="decreaseProduct" parameterType="com.limitbuy.entity.Goods" >
      update productinfo
      set stock = stock-#{count}
      where id = #{productId}

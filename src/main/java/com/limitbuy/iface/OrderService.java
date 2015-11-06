@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-  public  void insert(Order order);
+  public  String insert(String username);
 
   public  Order queryOrder(String userName);
 

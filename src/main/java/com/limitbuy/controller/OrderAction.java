@@ -26,10 +26,10 @@ public class OrderAction {
      * 下单接口
      * @return
      */
-    @RequestMapping(value = "/buy",method = RequestMethod.POST)
-    public String buy(@RequestBody Order order){
-        if (redisCacheDao.isExistsUser(order.getUserName())) {
-            orderService.insert(order);
+    @RequestMapping(value = "/buy{username}",method = RequestMethod.GET)
+    public String buy(@PathVariable String username){
+        if (redisCacheDao.isExistsUser(username)) {
+            orderService.insert(username);
             return "下单成功!";
         }else{
             return "该用户没有登录,请先登录!";

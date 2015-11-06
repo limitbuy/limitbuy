@@ -3,6 +3,7 @@ package com.limitbuy.iface.impl;
 import com.limitbuy.dao.LockCache;
 import com.limitbuy.dao.ProductDao;
 import com.limitbuy.dao.RedisCacheDao;
+import com.limitbuy.entity.Goods;
 import com.limitbuy.entity.Product;
 import com.limitbuy.iface.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class ProductServiceImpl implements ProductService {
         return productDao.insertProduct(product);
     }
 
-    public int decreaseProduct(Map map) {
-        int result =  productDao.decreaseProduct(map);
-        String productId = map.get("productId").toString();
-        Integer count = Integer.parseInt(map.get("count").toString());
-        Integer goodsCount = redisCacheDao.queryGoodsCount(productId);
+    public int decreaseProduct(Goods goods) {
+        int result =  productDao.decreaseProduct(goods);
+        Integer productId = goods.getProductId();
+        Integer count = goods.getCount();
+        Integer goodsCount = redisCacheDao.queryGoodsCount(productId.toString());
         Integer num = goodsCount - count;
-        redisCacheDao.setGoodsCount(productId,num.toString());
+        redisCacheDao.setGoodsCount(productId.toString(),num.toString());
         return result;
     }
 
