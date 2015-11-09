@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Created by longwu on 15/11/3.
@@ -45,6 +46,11 @@ public class ProductAction {
             return "添加食物失败!";
         }
 
+    }
+
+    @RequestMapping(value = "/query/all",method = RequestMethod.GET)
+    public List<Product> queryStock(){
+       return   productService.queryAllGoods();
     }
 
 }

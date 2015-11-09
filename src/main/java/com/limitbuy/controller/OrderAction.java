@@ -26,7 +26,7 @@ public class OrderAction {
      * 下单接口
      * @return
      */
-    @RequestMapping(value = "/buy{username}",method = RequestMethod.GET)
+    @RequestMapping(value = "/buy/{username}",method = RequestMethod.GET)
     public String buy(@PathVariable String username){
         if (redisCacheDao.isExistsUser(username)) {
             orderService.insert(username);

@@ -3,6 +3,7 @@ package com.limitbuy.iface;
 import com.limitbuy.entity.Goods;
 import com.limitbuy.entity.Product;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,5 +18,6 @@ public interface ProductService {
     public  int checkGoods(Map map);
 
     public  int queryGoodsCount(String productId);
+    public List<Product> queryAllGoods();
 
 }

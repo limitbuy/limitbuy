@@ -4,28 +4,19 @@ package com.limitbuy.entity;
  * Created by longwu on 15/10/28.
  */
 public class Product{
-    private long id;
-    private String productId;//商品目录ID
+    private int id;
     private String name;//商品名称
     private double price;//定价
     private int stock;//库存
     private String description ;
 //    private int status;//商品状态。1：新增，2：已上架，3：已下架?
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public String getName() {

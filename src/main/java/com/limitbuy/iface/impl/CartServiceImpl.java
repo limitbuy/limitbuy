@@ -13,24 +13,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by chenji on 15/10/28.
  */
 @Service
 public class CartServiceImpl implements CartServie{
-
+    private ExecutorService executorService = Executors.newCachedThreadPool();
     @Autowired
     private GoodsDao goodsDao;
     @Autowired
     private RedisCacheDao redisCacheDao;
 
     public void addToCart(String username,Goods goods) {
-        Map cart = new HashMap();
+        final Map cart = new HashMap();
         cart.put("userName",username);
         cart.put("productId",goods.getProductId());
-        cart.put("count",goods.getCount());
-        goodsDao.insertCart(cart);
+        cart.put("count", goods.getCount());
+        executorService.submit(new Runnable() {
+            public void run() {
+                goodsDao.insertCart(cart);
+            }
+        });
         List<Goods> goodsList = null;
         String userInfo = redisCacheDao.getUserInfo(username);
         if(!userInfo.equals(username)){

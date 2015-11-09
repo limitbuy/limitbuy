@@ -35,4 +35,9 @@
         where id=#{productid}
     </select>
 
+    <select id="queryAllGoods"  resultType="com.limitbuy.entity.Product">
+        SELECT name,price,stock,id from productinfo
+    </select>
+
+
 </mapper>

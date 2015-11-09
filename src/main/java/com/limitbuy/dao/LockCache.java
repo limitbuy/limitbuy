@@ -34,23 +34,19 @@ public class LockCache {
      */
     public boolean getLock(final String key)
             throws InterruptedException {
-        long sleepTime = 100;
-        int retry = 5;
         String keySeed = "lock:" + key;
         String value = System.currentTimeMillis() + "|" + timeout;
-        String[] splitString = null;
-        String returnValue = null;
-        boolean setnxResult = false;
-        int tRetry = 0;
+        return redisCacheDao.setNx(keySeed,value);
 
-        try {
+        /*try {
             while (true) {
                 setnxResult = redisCacheDao.setNx(keySeed,value);
                 if (setnxResult) {
                     redisCacheDao.expire(keySeed,1);
                     return true;
                 } else  {
-                    returnValue = redisCacheDao.get(keySeed);
+                    return false;
+                    *//*returnValue = redisCacheDao.get(keySeed);
                     long currentTime = System.currentTimeMillis();
                     while (true) {
                         splitString = returnValue.split("[|]");
@@ -71,13 +67,13 @@ public class LockCache {
                                 break;
                             }
                         }
-                    }
+                    }*//*
                 }
             }
         } catch (Exception e) {
             log.error("[LockCacheImpl]->[lock] error:[keySeed]=" + keySeed, e);
             return false;
-        }
+        }*/
     }
 
     /**

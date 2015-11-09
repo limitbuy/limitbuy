@@ -3,6 +3,7 @@ package com.limitbuy.dao;
 import com.limitbuy.entity.Goods;
 import com.limitbuy.entity.Product;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,4 +18,6 @@ public interface ProductDao {
     public  int checkGoods(Map map);
 
     public  int queryGoodsCount(int productId);
+
+    public List<Product> queryAllGoods();
 }

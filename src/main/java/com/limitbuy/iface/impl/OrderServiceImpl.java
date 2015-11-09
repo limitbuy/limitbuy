@@ -46,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
                     orderDao.insertOrderGoods(og);
                 }
             }
+            redisCacheDao.setUserInfo(username,username);
         }
         return null;
     }

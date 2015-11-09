@@ -113,19 +113,27 @@ public class UnitTest {
      */
     @Test
     public void testProductI() {
-        String result = null;
-        Product p = new Product();
-        p.setName("iphone6s");
-        p.setPrice(12.34);
-        p.setStock(99);
 
-        int success = productService.insertProduct(p);
-        if(success > 0){
-            result = "添加食物成功!";
-        }else{
-            result = "添加食物失败!";
+        String[] foods = {"地三鲜","酱牛肉","韭菜鱿鱼须","青椒炒肉丝","家常腐竹","糖醋带鱼","老厨白菜","家常茄子","韭菜鱿鱼须（简单家常菜）","南方家常菜——青椒猪耳",
+                "小俩口的家常菜之冰糖百合南瓜盅","家常菜——酱牛肉","青椒炒肉丝——简单家常菜","瘦身家常菜--西芹虾段","家常菜肴@@韭菜花炒蛋","【20元大餐】家常菜大餐——榄菜肉末四季豆","糖醋带鱼家常菜","家常菜芋儿鸡","家常菜肴@@蒜茸小白菜","家常菜牛肉汉堡包"
+        };
+        Random random = new Random();
+
+        String result = null;
+        Product product = null;
+        for (int i  =  0; i < 100; i++){
+            product = new Product();
+            product.setName(foods[random.nextInt(20)] + i);
+            product.setPrice(random.nextDouble() * 100);
+            product.setStock(500);
+            int success = productService.insertProduct(product);
+            if(success > 0){
+                result = "添加食物成功!";
+            }else{
+                result = "添加食物失败!";
+            }
+            log.info("*************\n{}\n*************",result);
         }
-        log.info("*************\n{}\n*************",result);
     }
 
     /**
@@ -226,6 +234,12 @@ public class UnitTest {
         map.put("productId", 1);
         map.put("count", 500);
         System.out.print("+++++++++++++++++" + productService.checkGoods(map));
+    }
+
+    @Test
+    public void testQueryAllGoods() {
+        List<Product> products = productService.queryAllGoods();
+        log.info(JSONObject.toJSONString(products));
     }
 
 }

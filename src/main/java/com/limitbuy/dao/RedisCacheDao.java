@@ -22,7 +22,9 @@ public class RedisCacheDao {
     private RedisTemplate redisTemplate;
 
     private static final String USER_INFO = "userInfo";
-    private static final String PRODUCT = "product";;
+    private static final String PRODUCT_STOCK = "product_stock";
+    private static final String PRODUCT_COUNT = "product_count";
+
 
     public void setUserInfo(String username,String userinfo) {
         redisTemplate.opsForHash().put(USER_INFO,username,userinfo);
@@ -36,8 +38,8 @@ public class RedisCacheDao {
        return redisTemplate.opsForHash().hasKey(USER_INFO,username);
     }
 
-    public int queryGoodsCount(String productId){
-        Object result = redisTemplate.opsForHash().get(PRODUCT,productId);
+    public int queryGoodsStock(String productId){
+        Object result = redisTemplate.opsForHash().get(PRODUCT_STOCK,productId);
         if(result != null){
             return Integer.parseInt(result.toString());
         }else{
@@ -45,8 +47,21 @@ public class RedisCacheDao {
         }
     }
 
-    public void setGoodsCount(String productId,String stock){
-        redisTemplate.opsForHash().put(PRODUCT, productId, stock);
+    public void setGoodsStock(String productId, String stock){
+        redisTemplate.opsForHash().put(PRODUCT_STOCK, productId, stock);
+    }
+
+    public int queryGoodsCount(String productId){
+        Object result = redisTemplate.opsForHash().get(PRODUCT_COUNT,productId);
+        if(result != null){
+            return Integer.parseInt(result.toString());
+        }else{
+            return 0;
+        }
+    }
+
+    public void setGoodsCount(String productId, String stock){
+        redisTemplate.opsForHash().put(PRODUCT_COUNT, productId, stock);
     }
 
     public boolean setNx(final String key, final String vallue) {
@@ -57,6 +72,7 @@ public class RedisCacheDao {
         });
         return result;
     }
+
 
     public String get(final String key) {
         String result = (String) redisTemplate.execute(new RedisCallback<String>() {

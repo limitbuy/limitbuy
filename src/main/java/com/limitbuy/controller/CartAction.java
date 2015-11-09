@@ -6,13 +6,12 @@ import com.limitbuy.entity.Cart;
 import com.limitbuy.entity.Goods;
 import com.limitbuy.iface.CartServie;
 import com.limitbuy.iface.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by chenjie on 15/10/30.
@@ -21,6 +20,7 @@ import java.util.Map;
 @RequestMapping(value = "/cart")
 public class CartAction {
 
+    private static final Logger log = LoggerFactory.getLogger(CartAction.class);
     @Autowired
     public CartServie cartServie;
     @Autowired
@@ -37,7 +37,7 @@ public class CartAction {
      * @throws InterruptedException
      */
     @RequestMapping(value = "/insertCart", method = RequestMethod.POST)
-    public String insertCart(@RequestBody Cart cart) throws InterruptedException {
+    public String insertCart(@RequestBody Cart cart) {
         StringBuilder result = new StringBuilder();
         if (redisCacheDao.isExistsUser(cart.getUserName())) {
             List<Goods> list = cart.getProductList();
@@ -45,18 +45,26 @@ public class CartAction {
                 long count = g.getCount();
                 Integer productId = g.getProductId();
                 //获取锁
-                if (lockCache.getLock(Integer.toString(productId))) {
-                    //1 先查询货物库存是否够
-                    int stock = productService.queryGoodsCount(productId.toString());
-                    if (stock < count) {
-                        result.append("商品ID:"+productId + "库存不足,添加购物车失败\n");
-                        continue;
+                try {
+                    if (lockCache.getLock(Integer.toString(productId))) {
+                        //1 先查询货物库存是否够
+                        int stock = productService.queryGoodsCount(productId.toString());
+                        if (stock < count) {
+                            result.append("商品ID:"+productId + "库存不足,添加购物车失败\n");
+                            continue;
+                        }
+                        //从库存里减去购买商品的数量xxxxxxx
+                        productService.decreaseProduct(g);
+                        //添加到购物车
+                        cartServie.addToCart(cart.getUserName(), g);
+                        redisCacheDao.delKey("lock:" + Integer.toString(productId));
+                        result.append("商品ID:"+productId + "添加购物车成功\n");
+                    }else{
+                        result.append("抱歉,你没有抢到,商品ID:" + productId);
+//                        redisCacheDao.expire("lock:" + Integer.toString(productId),1);
                     }
-                    //从库存里减去购买商品的数量
-                    productService.decreaseProduct(g);
-                    //添加到购物车
-                    cartServie.addToCart(cart.getUserName(),g);
-                    result.append("商品ID:"+productId + "添加购物车成功\n");
+                } catch (InterruptedException e) {
+                    log.error("error:{}", e.toString());
                 }
             }
         } else {

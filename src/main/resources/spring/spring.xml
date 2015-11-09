@@ -82,7 +82,8 @@
 
     <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
 
-
+    <!--Spring容器启动监听-->
+    <bean id="loadListener" class="com.limitbuy.listener.LoadListener"></bean>
 
 
 </beans>
